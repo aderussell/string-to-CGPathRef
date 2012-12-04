@@ -18,6 +18,9 @@
 		AB68410B166E773D001E7689 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AB68410A166E773D001E7689 /* Default-568h@2x.png */; };
 		AB68410E166E773D001E7689 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB68410C166E773D001E7689 /* MainStoryboard.storyboard */; };
 		AB684111166E773D001E7689 /* ARViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB684110166E773D001E7689 /* ARViewController.m */; };
+		AB684118166E87B3001E7689 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB684117166E87B3001E7689 /* QuartzCore.framework */; };
+		AB68411B166E89E0001E7689 /* UIBezierPath+TextPaths.m in Sources */ = {isa = PBXBuildFile; fileRef = AB68411A166E89E0001E7689 /* UIBezierPath+TextPaths.m */; };
+		AB68411D166E90D2001E7689 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB68411C166E90D2001E7689 /* CoreText.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +40,10 @@
 		AB68410D166E773D001E7689 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		AB68410F166E773D001E7689 /* ARViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ARViewController.h; sourceTree = "<group>"; };
 		AB684110166E773D001E7689 /* ARViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ARViewController.m; sourceTree = "<group>"; };
+		AB684117166E87B3001E7689 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		AB684119166E89E0001E7689 /* UIBezierPath+TextPaths.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBezierPath+TextPaths.h"; sourceTree = "<group>"; };
+		AB68411A166E89E0001E7689 /* UIBezierPath+TextPaths.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBezierPath+TextPaths.m"; sourceTree = "<group>"; };
+		AB68411C166E90D2001E7689 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,6 +51,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AB68411D166E90D2001E7689 /* CoreText.framework in Frameworks */,
+				AB684118166E87B3001E7689 /* QuartzCore.framework in Frameworks */,
 				AB6840F5166E773D001E7689 /* UIKit.framework in Frameworks */,
 				AB6840F7166E773D001E7689 /* Foundation.framework in Frameworks */,
 				AB6840F9166E773D001E7689 /* CoreGraphics.framework in Frameworks */,
@@ -56,6 +65,8 @@
 		AB6840E5166E773C001E7689 = {
 			isa = PBXGroup;
 			children = (
+				AB68411C166E90D2001E7689 /* CoreText.framework */,
+				AB684117166E87B3001E7689 /* QuartzCore.framework */,
 				AB6840FA166E773D001E7689 /* Text2CGPathDemo */,
 				AB6840F3166E773D001E7689 /* Frameworks */,
 				AB6840F1166E773D001E7689 /* Products */,
@@ -83,6 +94,8 @@
 		AB6840FA166E773D001E7689 /* Text2CGPathDemo */ = {
 			isa = PBXGroup;
 			children = (
+				AB684119166E89E0001E7689 /* UIBezierPath+TextPaths.h */,
+				AB68411A166E89E0001E7689 /* UIBezierPath+TextPaths.m */,
 				AB684103166E773D001E7689 /* ARAppDelegate.h */,
 				AB684104166E773D001E7689 /* ARAppDelegate.m */,
 				AB68410C166E773D001E7689 /* MainStoryboard.storyboard */,
@@ -177,6 +190,7 @@
 				AB684101166E773D001E7689 /* main.m in Sources */,
 				AB684105166E773D001E7689 /* ARAppDelegate.m in Sources */,
 				AB684111166E773D001E7689 /* ARViewController.m in Sources */,
+				AB68411B166E89E0001E7689 /* UIBezierPath+TextPaths.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
