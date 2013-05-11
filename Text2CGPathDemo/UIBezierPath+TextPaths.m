@@ -10,59 +10,125 @@
 #import <CoreText/CoreText.h>
 
 
-#define MAX_HEIGHT_OF_FRAME 2048    //for the multiline the CTFrame must have a max path size so this is arbitrary. currently height of retina ipad screen.
 
-#define ALIGN_FLUSH 0.5 // currently aligned to center text
+#define MAX_HEIGHT_OF_FRAME 2048    //for the multiline the CTFrame must have a max path size so this is arbitrary. currently 2x the height of ipad screen.
 
-CGPathRef CGPathCreateSingleLineString(NSString *string, CTFontRef fontRef);
-CGPathRef CGPathCreateMultilineString(NSString *string, CTFontRef fontRef, CGFloat maxWidth);
+// single line
+CGPathRef CGPathCreateSingleLineStringWithAttributedString(NSAttributedString *attrString);
+
+// multi line
+CGPathRef CGPathCreateMultilineStringWithAttributedString(NSAttributedString *attrString, CGFloat maxWidth);
+
 
 @implementation UIBezierPath (TextPaths)
 
+//------------------------------------------------------------------------
+#pragma mark - NSString
+
+
 + (UIBezierPath *)pathFromString:(NSString *)string WithFont:(UIFont *)font
 {
-    CTFontRef fontRef = CTFontCreateWithName((__bridge CFStringRef)font.fontName, font.pointSize, NULL);
-   
-    CGPathRef letters = CGPathCreateSingleLineString(string, fontRef);
-    
-    UIBezierPath *path = [UIBezierPath bezierPath];
-    [path moveToPoint:CGPointZero];
-    [path appendPath:[UIBezierPath bezierPathWithCGPath:letters]];
-    
-    CGPathRelease(letters);
-    CFRelease(fontRef);
-    
-    return path;
+    return [self pathFromString:string WithFont:font textAlignment:NSTextAlignmentCenter];
 }
 
 + (UIBezierPath *)pathFromMultilineString:(NSString *)string WithFont:(UIFont *)font maxWidth:(CGFloat)maxWidth
 {
-    CTFontRef fontRef = CTFontCreateWithName((__bridge CFStringRef)font.fontName, font.pointSize, NULL);
-    
-    // create the CGPath for all of the letters
-    CGPathRef letters = CGPathCreateMultilineString(string, fontRef, maxWidth);
+    return [self pathFromMultilineString:string WithFont:font maxWidth:maxWidth textAlignment:NSTextAlignmentCenter];
+}
 
+// technically pointless becuase a path is on a single line and the path will be as wide as the string so there is no alignment.
++ (UIBezierPath *)pathFromString:(NSString *)string WithFont:(UIFont *)font textAlignment:(NSTextAlignment)alignment
+{
+    NSAssert(string, @"string MUST NOT be nil");
+    NSAssert(font,   @"font MUST NOT be nil");
+    
+    NSMutableParagraphStyle *paragraphStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
+    paragraphStyle.alignment = alignment;
+    NSDictionary *attributes = @{ NSFontAttributeName : font, NSParagraphStyleAttributeName : paragraphStyle };
+
+    
+    NSAttributedString *attrString = [[NSAttributedString alloc] initWithString:string attributes:attributes];
+    
+    CGPathRef letters = CGPathCreateSingleLineStringWithAttributedString(attrString);
     
     UIBezierPath *path = [UIBezierPath bezierPath];
     [path moveToPoint:CGPointZero];
     [path appendPath:[UIBezierPath bezierPathWithCGPath:letters]];
-
-    CGPathRelease(letters);
-    CFRelease(fontRef);
     
+    CGPathRelease(letters);
     
     return path;
 }
 
++ (UIBezierPath *)pathFromMultilineString:(NSString *)string WithFont:(UIFont *)font maxWidth:(CGFloat)maxWidth textAlignment:(NSTextAlignment)alignment
+{
+    NSAssert(string, @"string MUST NOT be nil");
+    NSAssert(font,   @"font MUST NOT be nil");
+    
+    NSMutableParagraphStyle *paragraphStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
+    paragraphStyle.alignment = alignment;
+    
+    NSDictionary *attributes = @{ NSFontAttributeName : font, NSParagraphStyleAttributeName : paragraphStyle };
+    
+    NSAttributedString *attrString = [[NSAttributedString alloc] initWithString:string attributes:attributes];
+    
+    CGPathRef letters = CGPathCreateMultilineStringWithAttributedString(attrString, maxWidth);
+    
+    UIBezierPath *path = [UIBezierPath bezierPath];
+    [path moveToPoint:CGPointZero];
+    [path appendPath:[UIBezierPath bezierPathWithCGPath:letters]];
+    
+    CGPathRelease(letters);
+    
+    return path;
+}
+
+
+//------------------------------------------------------------------------
+#pragma mark - NSAttributedString
+
++ (UIBezierPath *)pathFromMultilineAttributedString:(NSAttributedString *)string maxWidth:(CGFloat)maxWidth
+{
+    NSAssert(string,         @"string MUST NOT be nil");
+    NSAssert(maxWidth > 0.0, @"maxWidth must be greater than 0.0");
+    
+    CGPathRef letters = CGPathCreateMultilineStringWithAttributedString(string, maxWidth);
+    
+    UIBezierPath *path = [UIBezierPath bezierPath];
+    [path moveToPoint:CGPointZero];
+    [path appendPath:[UIBezierPath bezierPathWithCGPath:letters]];
+    
+    CGPathRelease(letters);
+    
+    return path;
+}
+
++ (UIBezierPath *)pathFromAttributedString:(NSAttributedString *)string
+{
+    NSAssert(string, @"string MUST NOT be nil");
+    
+    CGPathRef letters = CGPathCreateSingleLineStringWithAttributedString(string);
+    
+    UIBezierPath *path = [UIBezierPath bezierPath];
+    [path moveToPoint:CGPointZero];
+    [path appendPath:[UIBezierPath bezierPathWithCGPath:letters]];
+    
+    CGPathRelease(letters);
+    
+    return path;
+}
+
+
 //--------------------------------------------------------------------------------------------------------------------------------------
 #pragma mark - Cross Platform foundation style functions
 
-CGPathRef CGPathCreateSingleLineString(NSString *string, CTFontRef fontRef)
+
+CGPathRef CGPathCreateSingleLineStringWithAttributedString(NSAttributedString *attrString)
 {
     CGMutablePathRef letters = CGPathCreateMutable();
     
-    NSDictionary *attrs = @{ (id)kCTFontAttributeName : (__bridge id)fontRef };
-    NSAttributedString *attrString = [[NSAttributedString alloc] initWithString:string attributes:attrs];
+    //NSDictionary *attrs = @{ (id)kCTFontAttributeName : (__bridge id)fontRef };
+    //NSAttributedString *attrString = [[NSAttributedString alloc] initWithString:string attributes:attrs];
     
     CTLineRef line = CTLineCreateWithAttributedString((__bridge CFAttributedStringRef)attrString);
     
@@ -103,19 +169,17 @@ CGPathRef CGPathCreateSingleLineString(NSString *string, CTFontRef fontRef)
 }
 
 
+//-------------------------------------------------------------------------------------
 
-CGPathRef CGPathCreateMultilineString(NSString *string, CTFontRef fontRef, CGFloat maxWidth)
+
+CGPathRef CGPathCreateMultilineStringWithAttributedString(NSAttributedString *attrString, CGFloat maxWidth)
 {
+    
     CGMutablePathRef letters = CGPathCreateMutable();
     
-    NSDictionary *attrs = @{ (id)kCTFontAttributeName : (__bridge id)fontRef };
-    
-    NSAttributedString *attrString = [[NSAttributedString alloc] initWithString:string attributes:attrs];
-    
-    CGMutablePathRef pathRef = CGPathCreateMutable();
     CGRect bounds = CGRectMake(0, 0, maxWidth, MAX_HEIGHT_OF_FRAME);
-    CGPathAddRect(pathRef, NULL, bounds);
     
+    CGPathRef pathRef = CGPathCreateWithRect(bounds, NULL);
     
     CTFramesetterRef framesetter = CTFramesetterCreateWithAttributedString((__bridge CFAttributedStringRef)(attrString));
     CTFrameRef frame = CTFramesetterCreateFrame(framesetter, CFRangeMake(0, 0), pathRef, NULL);
@@ -131,11 +195,34 @@ CGPathRef CGPathCreateMultilineString(NSString *string, CTFontRef fontRef, CGFlo
     {
         CTLineRef lineRef = CFArrayGetValueAtIndex(lines, lineIndex);
         
+        CFRange r = CTLineGetStringRange(lineRef);
+        
+        NSParagraphStyle *paragraphStyle = [attrString attribute:NSParagraphStyleAttributeName atIndex:r.location effectiveRange:NULL];
+        NSTextAlignment alignment = paragraphStyle.alignment;
+        
+        
+        CGFloat flushFactor = 0.0;
+        if (alignment == NSTextAlignmentLeft) {
+            flushFactor = 0.0;
+        } else if (alignment == NSTextAlignmentCenter) {
+            flushFactor = 0.5;
+        } else if (alignment == NSTextAlignmentRight) {
+            flushFactor = 1.0;
+        }
+        
+        
+        //CTLineGet
+        
         CFArrayRef runArray = CTLineGetGlyphRuns(lineRef);
+        
+        
+        
+        
         
         CGFloat lineOffset =  MAX_HEIGHT_OF_FRAME - points[lineIndex].y;
         
-        CGFloat penOffset = CTLineGetPenOffsetForFlush(lineRef, ALIGN_FLUSH, maxWidth);
+        
+        CGFloat penOffset = CTLineGetPenOffsetForFlush(lineRef, flushFactor, maxWidth);
         
         // for each RUN
         for (CFIndex runIndex = 0; runIndex < CFArrayGetCount(runArray); runIndex++)
