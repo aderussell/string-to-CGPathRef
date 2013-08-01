@@ -45,7 +45,7 @@ CGPathRef CGPathCreateMultilineStringWithAttributedString(NSAttributedString *at
     NSMutableParagraphStyle *paragraphStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
     paragraphStyle.alignment = alignment;
     NSDictionary *attributes = @{ NSFontAttributeName : font, NSParagraphStyleAttributeName : paragraphStyle };
-
+    
     
     NSAttributedString *attrString = [[NSAttributedString alloc] initWithString:string attributes:attributes];
     
@@ -190,8 +190,9 @@ CGPathRef CGPathCreateMultilineStringWithAttributedString(NSAttributedString *at
     
     CTFrameGetLineOrigins(frame, CFRangeMake(0, 0), points);
     
+    NSInteger numLines = CFArrayGetCount(lines);
     // for each LINE
-    for (CFIndex lineIndex = 0; lineIndex < CFArrayGetCount(lines); lineIndex++)
+    for (CFIndex lineIndex = 0; lineIndex < numLines; lineIndex++)
     {
         CTLineRef lineRef = CFArrayGetValueAtIndex(lines, lineIndex);
         
@@ -210,17 +211,10 @@ CGPathRef CGPathCreateMultilineStringWithAttributedString(NSAttributedString *at
             flushFactor = 1.0;
         }
         
-        
         //CTLineGet
-        
         CFArrayRef runArray = CTLineGetGlyphRuns(lineRef);
         
-        
-        
-        
-        
-        CGFloat lineOffset =  MAX_HEIGHT_OF_FRAME - points[lineIndex].y;
-        
+        CGFloat lineOffset = numLines == 1 ? 0 : MAX_HEIGHT_OF_FRAME - points[lineIndex].y;
         
         CGFloat penOffset = CTLineGetPenOffsetForFlush(lineRef, flushFactor, maxWidth);
         
@@ -258,8 +252,11 @@ CGPathRef CGPathCreateMultilineStringWithAttributedString(NSAttributedString *at
     CFRelease(frame);
     CFRelease(framesetter);
     
-    CGPathRef finalPath = CGPathCreateCopy(letters);
+    CGRect pathBounds = CGPathGetBoundingBox(letters);
+    CGAffineTransform transform = CGAffineTransformMakeTranslation(-pathBounds.origin.x, -pathBounds.origin.y);
+    CGPathRef finalPath = CGPathCreateCopyByTransformingPath(letters, &transform);
     CGPathRelease(letters);
+    
     return finalPath;
 }
 
