@@ -52,7 +52,7 @@ static CGFloat         kFontsizes[4] = { 30.0, 60.0, 50.0, 40.0};
 - (CAShapeLayer *)singleLinePathStandard
 {
     CAShapeLayer *line1 = [CAShapeLayer new];
-    line1.path = [UIBezierPath pathFromString:SINGLE_LINE_STRING WithFont:[UIFont boldSystemFontOfSize:60.0]].CGPath;
+    line1.path = [UIBezierPath pathForString:SINGLE_LINE_STRING withFont:[UIFont boldSystemFontOfSize:60.0]].CGPath;
     line1.bounds = CGPathGetBoundingBox(line1.path);
     line1.geometryFlipped = YES;
     line1.fillColor = [UIColor whiteColor].CGColor;
@@ -67,7 +67,7 @@ static CGFloat         kFontsizes[4] = { 30.0, 60.0, 50.0, 40.0};
     NSAttributedString *attString = [self attributedStringForString:SINGLE_LINE_STRING];
     
     CAShapeLayer *line1 = [CAShapeLayer new];
-    line1.path = [UIBezierPath pathFromAttributedString:attString].CGPath;
+    line1.path = [UIBezierPath pathForAttributedString:attString].CGPath;
     line1.bounds = CGPathGetBoundingBox(line1.path);
     line1.geometryFlipped = YES;
     line1.fillColor = [UIColor whiteColor].CGColor;
@@ -80,8 +80,15 @@ static CGFloat         kFontsizes[4] = { 30.0, 60.0, 50.0, 40.0};
 - (CAShapeLayer *)multiLinePathAttributed
 {
     NSAttributedString *attrString2 = [self attributedStringForString:MULTI_LINE_STRING];
+    
+    NSMutableAttributedString *mutAttr = [attrString2 mutableCopy];
+    NSMutableParagraphStyle *paragraphStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
+    paragraphStyle.alignment = NSTextAlignmentJustified;
+    [mutAttr addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, attrString2.length)];
+    
+    
     CAShapeLayer *line2 = [CAShapeLayer new];
-    line2.path = [UIBezierPath pathFromMultilineAttributedString:attrString2 maxWidth:self.view.bounds.size.width - 100].CGPath;
+    line2.path = [UIBezierPath pathForMultilineAttributedString:mutAttr maxWidth:self.view.bounds.size.width - 100].CGPath;
     line2.bounds = CGPathGetBoundingBox(line2.path);
     line2.geometryFlipped = YES;
     line2.fillColor = [UIColor whiteColor].CGColor;
@@ -94,7 +101,10 @@ static CGFloat         kFontsizes[4] = { 30.0, 60.0, 50.0, 40.0};
 - (CAShapeLayer *)multiLinePathStandardLineBreaks
 {
     CAShapeLayer *line3 = [CAShapeLayer new];
-    line3.path = [UIBezierPath pathFromMultilineString:MULTI_LINE_STRING_LINE_BREAKS WithFont:[UIFont boldSystemFontOfSize:40.0] maxWidth:self.view.bounds.size.width - 100].CGPath;
+    line3.path = [UIBezierPath pathForMultilineString:MULTI_LINE_STRING_LINE_BREAKS
+                                             withFont:[UIFont boldSystemFontOfSize:40.0]
+                                             maxWidth:self.view.bounds.size.width - 100
+                                        textAlignment:NSTextAlignmentCenter].CGPath;
     line3.bounds = CGPathGetBoundingBox(line3.path);
     line3.geometryFlipped = YES;
     line3.fillColor = [UIColor whiteColor].CGColor;
@@ -109,6 +119,8 @@ static CGFloat         kFontsizes[4] = { 30.0, 60.0, 50.0, 40.0};
 
 - (void)viewDidAppear:(BOOL)animated
 {
+    [super viewDidAppear:animated];
+    
     // load single with standard string
     CAShapeLayer *line1 = [self singleLinePathStandard];
     line1.position = CGPointMake(self.view.bounds.size.width / 2.0, self.view.bounds.size.height * 0.10);
