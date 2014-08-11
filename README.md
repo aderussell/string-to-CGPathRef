@@ -31,3 +31,7 @@ This version has created a number of changes to the previous commit that make it
 * All the method names have been changed to make them clearer.
 * The CoreText internals have been seperated from the UIBezierPath category, this means that OS X can now use the CoreText methods (that return CGPathRef).
 * The multiline methods now support justified text alignment. (Note that doesn't suport Natural aligment; that will be left aligned).
+* 
+
+## License
+ARCGPathFromString is available under the MIT license. See the LICENSE file for more info.
