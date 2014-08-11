@@ -130,8 +130,7 @@
 				ABBC8C8319952C34008F3153 /* ARCGPathFromString.h */,
 				ABBC8C8419952C34008F3153 /* ARCGPathFromString.m */,
 			);
-			name = ARCGPathFromString;
-			path = Text2CGPathDemo;
+			path = ARCGPathFromString;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
