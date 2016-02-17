@@ -1,5 +1,9 @@
 An Objective-C category for UIBezierPath that creates paths from strings.
 
+## Installing the project
+`pod 'ARCGPathFromString'`
+
+
 ## Using the project
 For use with iOS 6 and later.
 
