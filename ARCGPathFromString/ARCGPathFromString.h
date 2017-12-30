@@ -23,13 +23,15 @@
 #import <Foundation/Foundation.h>
 #import <CoreText/CoreText.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  Creates a CGPath from a specified attributed string.
  @param attrString The attributed string to produce the path for. Must not be `nil`.
  @return A new CGPath that contains a path with paths for all the glyphs for specifed string.
  @discussion  This string will always be on a single line even if the string contains linebreaks.
  */
-CGPathRef CGPathCreateSingleLineStringWithAttributedString(NSAttributedString *attrString);
+CGPathRef CGPathCreateSingleLineStringWithAttributedString(NSAttributedString *attrString) CF_RETURNS_RETAINED;
 
 /**
  Creates a CGPath from a specified attributed string that can span over multiple lines of text.
@@ -38,4 +40,6 @@ CGPathRef CGPathCreateSingleLineStringWithAttributedString(NSAttributedString *a
  @param maxHeight  The maximum height of the text block. Must be greater than 0.
  @return A new CGPath that contains a path with paths for all the glyphs for specifed string.
  */
-CGPathRef CGPathCreateMultilineStringWithAttributedString(NSAttributedString *attrString, CGFloat maxWidth, CGFloat maxHeight);
+CGPathRef CGPathCreateMultilineStringWithAttributedString(NSAttributedString *attrString, CGFloat maxWidth, CGFloat maxHeight) CF_RETURNS_RETAINED;
+
+NS_ASSUME_NONNULL_END
