@@ -8,23 +8,26 @@
 
 Pod::Spec.new do |s|
   s.name             = "ARCGPathFromString"
-  s.version          = "1.0.0"
+  s.version          = "1.1.0"
   s.summary          = "Takes in an NSString or NSAttributedString and creates a CGPathRef for that string." 
   s.description      = "This CocoaPod provides methods for creating CGPaths from NSStrings and NSAttributedStrings. A category for UIBezierPath also allows UIBezierPaths to be produced from strings."
 
   s.homepage         = "https://github.com/aderussell/string-to-CGPathRef"
+  
   # s.screenshots     = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
+  
   s.license          = 'MIT'
-  s.author           = { "Adrian Russell" => "adrianrussell@me.com" }
-  s.source           = { :git => "https://github.com/aderussell/string-to-CGPathRef.git", :tag => s.version.to_s }
+  s.author           = { "aderussell" => "adrianrussell@me.com" }
   s.social_media_url = 'https://twitter.com/ade177'
+  
+  s.source           = { :git => "https://github.com/aderussell/string-to-CGPathRef.git", :tag => s.version.to_s }
+  
 
   s.platform     = :ios, '6.0'
   s.requires_arc = true
 
   s.source_files = 'ARCGPathFromString/*'
-  s.resource_bundles = {
-    'ARCGPathFromString' => ['Pod/Assets/*.png']
-  }
+  
+  
   s.frameworks = 'Foundation', 'CoreText'
 end

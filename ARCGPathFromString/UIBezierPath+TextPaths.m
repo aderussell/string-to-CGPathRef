@@ -39,7 +39,7 @@
 + (UIBezierPath *)pathForString:(NSString *)string withFont:(UIFont *)font
 {
     // if there is no string or font then just return nil.
-    if (!string || !font) return nil;
+    if (!string || !font) return [UIBezierPath bezierPath];
     
     // create the dictionary of attributes for the attributed string contaning the font.
     NSDictionary *attributes = @{ NSFontAttributeName : font };
@@ -59,7 +59,7 @@
 
 {
     // if there is no string or font or no width then just return nil.
-    if (!string || !font || maxWidth <= 0.0) return nil;
+    if (!string || !font || maxWidth <= 0.0) return [UIBezierPath bezierPath];
     
     // create the paragraph style so the text alignment can be assigned to the attributed string.
     NSMutableParagraphStyle *paragraphStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
@@ -82,7 +82,7 @@
 + (UIBezierPath *)pathForAttributedString:(NSAttributedString *)string
 {
     // if there is no specified string then there will be no path so just return nil.
-    if (!string) return nil;
+    if (!string) return [UIBezierPath bezierPath];
     
     // create the path from the specified string.
     CGPathRef letters = CGPathCreateSingleLineStringWithAttributedString(string);
@@ -100,7 +100,7 @@
 + (UIBezierPath *)pathForMultilineAttributedString:(NSAttributedString *)string maxWidth:(CGFloat)maxWidth
 {
     // if there is no specified string or the maxwidth is set to 0 then there will be no path so return nil.
-    if (!string || maxWidth <= 0.0) return nil;
+    if (!string || maxWidth <= 0.0) return [UIBezierPath bezierPath];
     
     // create the path from the specified string.
     CGPathRef letters = CGPathCreateMultilineStringWithAttributedString(string, maxWidth, MAX_HEIGHT_OF_FRAME);
