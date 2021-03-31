@@ -21,6 +21,7 @@
 		AB684118166E87B3001E7689 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB684117166E87B3001E7689 /* QuartzCore.framework */; };
 		AB68411B166E89E0001E7689 /* UIBezierPath+TextPaths.m in Sources */ = {isa = PBXBuildFile; fileRef = AB68411A166E89E0001E7689 /* UIBezierPath+TextPaths.m */; };
 		AB68411D166E90D2001E7689 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB68411C166E90D2001E7689 /* CoreText.framework */; };
+		ABBB133D261517B20020B371 /* SwiftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBB133C261517B20020B371 /* SwiftViewController.swift */; };
 		ABBC8C8519952C34008F3153 /* ARCGPathFromString.m in Sources */ = {isa = PBXBuildFile; fileRef = ABBC8C8419952C34008F3153 /* ARCGPathFromString.m */; };
 /* End PBXBuildFile section */
 
@@ -38,13 +39,15 @@
 		AB684106166E773D001E7689 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		AB684108166E773D001E7689 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		AB68410A166E773D001E7689 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		AB68410D166E773D001E7689 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		AB68410F166E773D001E7689 /* ARViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ARViewController.h; sourceTree = "<group>"; };
 		AB684110166E773D001E7689 /* ARViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ARViewController.m; sourceTree = "<group>"; };
 		AB684117166E87B3001E7689 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		AB684119166E89E0001E7689 /* UIBezierPath+TextPaths.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIBezierPath+TextPaths.h"; path = "../ARCGPathFromString/UIBezierPath+TextPaths.h"; sourceTree = "<group>"; };
 		AB68411A166E89E0001E7689 /* UIBezierPath+TextPaths.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIBezierPath+TextPaths.m"; path = "../ARCGPathFromString/UIBezierPath+TextPaths.m"; sourceTree = "<group>"; };
 		AB68411C166E90D2001E7689 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		ABBB133B261517B10020B371 /* Text2CGPathDemo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Text2CGPathDemo-Bridging-Header.h"; sourceTree = "<group>"; };
+		ABBB133C261517B20020B371 /* SwiftViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftViewController.swift; sourceTree = "<group>"; };
+		ABBB133F26151E2E0020B371 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		ABBC8C8319952C34008F3153 /* ARCGPathFromString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARCGPathFromString.h; sourceTree = "<group>"; };
 		ABBC8C8419952C34008F3153 /* ARCGPathFromString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ARCGPathFromString.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -103,7 +106,9 @@
 				AB68410C166E773D001E7689 /* MainStoryboard.storyboard */,
 				AB68410F166E773D001E7689 /* ARViewController.h */,
 				AB684110166E773D001E7689 /* ARViewController.m */,
+				ABBB133C261517B20020B371 /* SwiftViewController.swift */,
 				AB6840FB166E773D001E7689 /* Supporting Files */,
+				ABBB133B261517B10020B371 /* Text2CGPathDemo-Bridging-Header.h */,
 			);
 			path = Text2CGPathDemo;
 			sourceTree = "<group>";
@@ -160,15 +165,21 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = AR;
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = "Adrian Russell";
+				TargetAttributes = {
+					AB6840EF166E773D001E7689 = {
+						LastSwiftMigration = 1230;
+					};
+				};
 			};
 			buildConfigurationList = AB6840EA166E773D001E7689 /* Build configuration list for PBXProject "Text2CGPathDemo" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = AB6840E5166E773C001E7689;
 			productRefGroup = AB6840F1166E773D001E7689 /* Products */;
@@ -200,6 +211,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ABBB133D261517B20020B371 /* SwiftViewController.swift in Sources */,
 				AB684101166E773D001E7689 /* main.m in Sources */,
 				ABBC8C8519952C34008F3153 /* ARCGPathFromString.m in Sources */,
 				AB684105166E773D001E7689 /* ARAppDelegate.m in Sources */,
@@ -222,7 +234,7 @@
 		AB68410C166E773D001E7689 /* MainStoryboard.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				AB68410D166E773D001E7689 /* en */,
+				ABBB133F26151E2E0020B371 /* Base */,
 			);
 			name = MainStoryboard.storyboard;
 			sourceTree = "<group>";
@@ -241,11 +253,13 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
@@ -289,11 +303,13 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
@@ -322,12 +338,17 @@
 		AB684115166E773D001E7689 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Text2CGPathDemo/Text2CGPathDemo-Prefix.pch";
 				INFOPLIST_FILE = "Text2CGPathDemo/Text2CGPathDemo-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "co.uk.adrianrussell.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Text2CGPathDemo/Text2CGPathDemo-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -335,12 +356,16 @@
 		AB684116166E773D001E7689 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Text2CGPathDemo/Text2CGPathDemo-Prefix.pch";
 				INFOPLIST_FILE = "Text2CGPathDemo/Text2CGPathDemo-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "co.uk.adrianrussell.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Text2CGPathDemo/Text2CGPathDemo-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
